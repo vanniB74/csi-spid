@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>C.S.I. — Centro Servizi Integrati | SPID e PEC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style id="ms">
+:root{--nv:#001C3A;--gb:#39546B;--gc:#99A7B3;--av:#F7F4ED;--er:#B3261E;--ft:'Inter Tight',sans-serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;background:#001C3A}
+body{font:400 1rem/1.6 var(--fb);color:var(--nv);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(0,13,28,.86),rgba(0,13,28,.9)),url('/img/017b3679-696a-48ed-a9ac-a5dc6ff57a6a.jpeg') center/cover no-repeat}
+img{max-width:100%}button:focus-visible{outline:2px solid var(--gc)}
+.ey{font:500 11px var(--fb);letter-spacing:.18em;text-transform:uppercase}.eyd{color:var(--gb)}
+.page{display:none}#page-home{display:block}
+.page.on{display:block;min-height:100vh;background:rgba(247,244,237,.95)}
+#page-home.off{display:none}
+[data-go]{cursor:pointer}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes fadeL{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes fadeR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes zoomI{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.au{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.al{opacity:0;transform:translateX(-40px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.ar{opacity:0;transform:translateX(40px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.az{opacity:0;transform:scale(.75);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.au.on,.al.on,.ar.on,.az.on{opacity:1;transform:none}
+.shimmer{background:linear-gradient(90deg,#fff 20%,#6ab0ff 40%,#fff 60%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
+header{position:sticky;top:0;z-index:100;background:var(--nv);border-bottom:1px solid rgba(57,84,107,.6)}
+.hi{display:flex;align-items:center;justify-content:space-between;padding:10px 5%}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;cursor:pointer}
+.bm{width:42px;height:42px}
+.bn{font:600 1.2rem/1 var(--ft)}.bs{display:block;font:500 8px/10px var(--fb);letter-spacing:.18em;text-transform:uppercase;color:var(--gc)}
+.dn ul{display:flex;list-style:none;gap:14px}
+.dn a{color:#fff;font:500 .8rem/1 var(--fb);padding:6px 0;border-bottom:2px solid transparent;cursor:pointer}
+.dn a:hover{color:var(--gc);border-color:var(--gc)}
+.dn .cta{background:var(--av);color:var(--nv);border-radius:6px;padding:8px 12px;font-weight:600;border-bottom:none}
+.mbtn{display:none;background:none;border:1px solid var(--gc);width:42px;height:42px;border-radius:6px;cursor:pointer;color:#fff}
+.mnav{display:none}.mnav.open{display:block;background:#000D1C}
+.mnav a{display:block;padding:12px 5%;color:#fff;cursor:pointer;border-top:1px solid rgba(57,84,107,.35)}
+.hero{background:var(--nv);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(900px 400px at 85% -10%,rgba(57,84,107,.45),transparent 60%),radial-gradient(rgba(153,167,179,.1) 1px,transparent 1.4px);background-size:auto,24px 24px}
+.hgrid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;max-width:1080px;margin:0 auto;padding:52px 5% 50px}
+.hbadge{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border:1px solid var(--gc);border-radius:999px;color:var(--gc);margin-bottom:14px;font:500 10px var(--fb);letter-spacing:.18em;text-transform:uppercase}
+.hbadge img{height:18px}
+.hero h1{font:600 clamp(1.8rem,4vw,2.8rem)/1.12 var(--ft);margin-bottom:12px;max-width:20ch}
+.hlead{color:var(--gc);max-width:50ch;margin-bottom:20px;font-size:.98rem}
+.hpts{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:24px}
+.hpts li{color:var(--gc);font-size:.84rem}.hpts li::before{content:"✓ ";color:#fff;font-weight:700}
+.hcta{display:inline-flex;background:var(--av);color:var(--nv);border-radius:8px;padding:13px 24px;font:600 .95rem var(--ft);cursor:pointer;border:none}
+.hcta:hover{background:#fff}
+.hnote{margin-top:18px;padding-top:12px;border-top:1px solid rgba(57,84,107,.55);font:400 .72rem/1.5 var(--fm);color:var(--gc)}
+.himg{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(153,167,179,.4);box-shadow:0 24px 48px -16px rgba(0,0,0,.6);min-height:260px;background:linear-gradient(135deg,#0a2a4a,#001C3A);animation:zoomI .8s ease}
+.himg img{width:100%;height:100%;object-fit:cover;display:block}
+.himg .cap{position:absolute;left:10px;bottom:10px;right:10px;background:rgba(0,13,28,.85);border:1px solid rgba(153,167,179,.3);border-radius:8px;padding:8px 12px;font:500 .64rem/1.4 var(--fb);color:var(--gc)}
+.himg .cap b{display:block;color:#fff;font:600 .72rem/1.3 var(--ft)}
+.section{padding:52px 5%}
+.sav{background:rgba(247,244,237,.94)}.swh{background:rgba(255,255,255,.94)}.snv{background:rgba(0,28,58,.96);color:#fff}
+.wrap{max-width:1080px;margin:0 auto}
+.shead{max-width:640px;margin:0 auto 28px;text-align:center}
+.shead h2{font:600 clamp(1.6rem,3vw,2.1rem)/1.15 var(--ft);margin:8px 0 8px}
+.sub{color:var(--gb)}.snv .sub,.snv .ey{color:var(--gc)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{background:#fff;border:1px solid rgba(57,84,107,.2);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,28,58,.15)}
+.cmed{height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.cmed img{width:100%;height:100%;object-fit:cover}
+.cbd{padding:18px}.cbd h3{font:600 1.25rem/1.2 var(--ft);margin:4px 0 6px}.cbd>p{color:var(--gb);font-size:.88rem}
+.card ul{list-style:none;margin-top:8px}.card li{padding:5px 0;border-bottom:1px dashed rgba(153,167,179,.45);font-size:.84rem}.card li:last-child{border:none}.card li::before{content:"✓ ";color:var(--gb);font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:rgba(247,244,237,.06);border:1px solid rgba(153,167,179,.28);border-radius:10px;padding:18px}
+.step b{display:block;font:500 .7rem var(--fm);letter-spacing:.12em;color:var(--gc);margin-bottom:8px}
+.step h3{font:600 1.05rem/1.25 var(--ft);margin-bottom:6px}.step p{color:var(--gc);font-size:.84rem}
+.tscr{overflow-x:auto;border:1px solid rgba(57,84,107,.2);border-radius:10px}
+.cpt{width:100%;border-collapse:collapse;min-width:480px;font-size:.86rem;background:#fff}
+.cpt th,.cpt td{padding:10px 14px;text-align:left;border:1px solid rgba(57,84,107,.2);vertical-align:top}
+.cpt thead th{background:var(--nv);color:#fff}.cpt tbody tr:nth-child(even){background:var(--av)}
+/* FAQ */
+.hero-faq{background:linear-gradient(135deg,#001C3A 0%,#0a3160 50%,#001C3A 100%);background-size:200% 200%;animation:grad 8s ease infinite;color:#fff;padding:56px 5% 36px;text-align:center;position:relative;overflow:hidden}
+@keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero-faq h1{font:700 clamp(1.9rem,5vw,2.8rem)/1.1 var(--ft);margin-bottom:8px;animation:fadeUp 1s ease}
+.hero-faq p{color:var(--gc);max-width:46ch;margin:0 auto;font-size:.95rem;animation:fadeUp 1s .2s ease both}
+.hero-faq .tabs{display:flex;justify-content:center;gap:10px;margin-top:22px;flex-wrap:wrap;animation:fadeUp 1s .4s ease both}
+.hero-faq .tab{padding:9px 18px;border-radius:999px;border:1px solid rgba(153,167,179,.45);color:var(--gc);cursor:pointer;font:600 .8rem var(--ft);transition:all .3s}
+.hero-faq .tab:hover{border-color:#fff;color:#fff;transform:translateY(-2px)}
+.sec-fq{padding:46px 5% 54px;position:relative;overflow:hidden;color:#fff}
+.sec-fq-spid{background:linear-gradient(180deg,rgba(0,28,58,.97) 0%,rgba(0,50,100,.95) 50%,rgba(0,28,58,.97) 100%)}
+.sec-fq-pec{background:linear-gradient(180deg,rgba(0,28,58,.97) 0%,rgba(45,38,12,.95) 50%,rgba(0,28,58,.97) 100%)}
+.sec-fq::before{content:"";position:absolute;top:-40%;right:-15%;width:450px;height:450px;border-radius:50%;pointer-events:none;animation:spin 30s linear infinite}
+.sec-fq-spid::before{background:radial-gradient(circle,rgba(0,150,255,.1),transparent 70%)}
+.sec-fq-pec::before{background:radial-gradient(circle,rgba(233,210,154,.08),transparent 70%)}
+.fq-head{display:flex;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap;position:relative;z-index:1}
+.fq-logo{width:80px;height:80px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(153,167,179,.3);overflow:hidden;animation:float 4s ease-in-out infinite;flex-shrink:0;cursor:pointer;transition:all .3s}
+.fq-logo:hover{transform:scale(1.06);border-color:#fff}
+.fq-logo img{width:100%;height:100%;object-fit:cover}
+.fq-head h2{font:700 clamp(1.4rem,3vw,2rem)/1.15 var(--ft);flex:1}
+.badge{display:inline-flex;padding:5px 12px;border-radius:999px;font:600 10px var(--fm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;animation:pulse 2.5s ease-in-out infinite}
+.sec-fq-spid .badge{background:rgba(0,150,255,.15);border:1px solid rgba(0,150,255,.3);color:#6ab0ff}
+.sec-fq-pec .badge{background:rgba(233,210,154,.15);border:1px solid rgba(233,210,154,.3);color:#e9d29a}
+.igrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-bottom:32px;position:relative;z-index:1}
+.icard{background:rgba(255,255,255,.05);border:1px solid rgba(153,167,179,.2);border-radius:14px;padding:20px;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.icard::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.05) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
+.icard:hover::before{transform:translateX(100%)}
+.icard:hover{transform:translateY(-5px) scale(1.02);border-color:rgba(255,255,255,.4);box-shadow:0 14px 36px rgba(0,0,0,.4)}
+.icard .num{position:absolute;top:12px;right:14px;font:700 2.6rem var(--ft);opacity:.06;line-height:1}
+.icard .ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:1.3rem;animation:float 5s ease-in-out infinite}
+.sec-fq-spid .icard .ico{background:rgba(0,150,255,.12);border:1px solid rgba(0,150,255,.25)}
+.sec-fq-pec .icard .ico{background:rgba(233,210,154,.12);border:1px solid rgba(233,210,154,.25)}
+.icard h3{font:600 1rem var(--ft);margin-bottom:6px;color:#fff}
+.icard p{font-size:.82rem;color:var(--gc);line-height:1.5}
+.infog{position:relative;z-index:1;background:rgba(255,255,255,.04);border:1px solid rgba(153,167,179,.25);border-radius:18px;padding:18px;overflow:hidden;cursor:pointer;transition:all .4s}
+.infog:hover{border-color:rgba(255,255,255,.5);box-shadow:0 18px 50px rgba(0,0,0,.5);transform:scale(1.01)}
+.infog .lbl{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:6px}
+.infog .lbl span:first-child{font:600 .72rem var(--fb);letter-spacing:.15em;text-transform:uppercase;color:var(--gc)}
+.infog .zoom{font:600 .68rem var(--fm);padding:4px 10px;border-radius:999px;border:1px solid rgba(153,167,179,.4);color:var(--gc);transition:all .3s}
+.infog:hover .zoom{background:var(--av);color:var(--nv);border-color:var(--av)}
+.infog img{width:100%;border-radius:10px;display:block;transition:transform .5s}
+.infog:hover img{transform:scale(1.02)}
+.infog::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.05) 50%,transparent 60%);transform:translateX(-100%);transition:transform .8s;pointer-events:none}
+.infog:hover::after{transform:translateX(100%)}
+.sec-faq-gen{background:rgba(247,244,237,.95);padding:46px 5% 54px;color:var(--nv)}
+.sec-faq-gen h2{font:700 1.7rem var(--ft);text-align:center;margin-bottom:26px}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{background:#fff;border:1px solid rgba(57,84,107,.2);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:all .3s}
+.faq-item:hover{box-shadow:0 6px 20px rgba(0,28,58,.1)}
+.faq-item summary{padding:14px 18px;font:600 .92rem var(--ft);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item .plus{width:26px;height:26px;border-radius:7px;background:var(--nv);color:#fff;display:flex;align-items:center;justify-content:center;font:700 .9rem var(--ft);transition:all .3s;flex-shrink:0}
+.faq-item[open] .plus{background:var(--av);color:var(--nv);transform:rotate(45deg)}
+.faq-item[open] summary{background:rgba(0,28,58,.04)}
+.faq-item .body{padding:0 18px 14px;font-size:.86rem;color:var(--gb);line-height:1.6;animation:fadeUp .4s ease}
+.lbx{position:fixed;inset:0;z-index:5000;background:rgba(0,5,15,.92);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+.lbx.on{display:flex}
+.lbx .inner{max-width:920px;width:100%;max-height:88vh;position:relative;animation:zoomI .35s cubic-bezier(.16,1,.3,1)}
+.lbx img{width:100%;max-height:82vh;object-fit:contain;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lbx .cls{position:absolute;top:-40px;right:0;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;font:600 1.2rem var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.lbx .cls:hover{background:var(--er);transform:rotate(90deg)}
+/* PRENOTA */
+.pwrap{padding:18px 5% 54px}
+.back{display:inline-block;margin-bottom:8px;color:var(--gb);cursor:pointer;font:500 .82rem var(--fb)}
+.ptit{font:600 clamp(1.5rem,3vw,2rem)/1.15 var(--ft);margin-bottom:4px}
+.psub{color:var(--gb);font-size:.92rem;margin-bottom:20px}
+.booking{background:#fff;border:1px solid rgba(153,167,179,.4);border-radius:10px;padding:20px;box-shadow:0 20px 40px -18px rgba(0,13,28,.5)}
+.bhead{border-bottom:2px solid var(--av);padding-bottom:10px;margin-bottom:14px}
+.bhead h2{font:600 1.15rem/1.2 var(--ft);margin-top:3px}
+.frow{display:flex;gap:10px}
+.fg{flex:1;min-width:0;margin-bottom:10px}
+.fg label{display:block;font:500 .76rem/1.3 var(--fb);color:var(--gb);margin-bottom:4px}
+.fg>label::after{content:" *";color:var(--er);font-weight:700}
+.fg input,.fg select{width:100%;padding:8px 10px;border:1px solid #C7CFD6;border-radius:6px;font:400 .88rem var(--fb);color:var(--nv)}
+#codice_fiscale,#cap,#data_app{font-family:var(--fm)}#codice_fiscale{text-transform:uppercase}
+.subh{margin:4px 0 10px;padding-top:10px;border-top:1px dashed rgba(153,167,179,.4)}
+.subh .ey{color:var(--nv)}
+.bsub{width:100%;background:var(--nv);color:#fff;border:none;border-radius:6px;padding:12px;font:600 .92rem/1 var(--ft);cursor:pointer}
+.bsub:hover{background:var(--gb)}.bsub:disabled{opacity:.65}
+.sHint{display:none;margin-top:8px;padding:6px 10px;background:var(--av);border-left:3px solid var(--gb);border-radius:4px;font:500 .7rem/1.4 var(--fb);color:var(--gb)}.sHint.show{display:block}
+.sbar{display:flex;flex-wrap:wrap;gap:4px 12px;margin:4px 0 8px;padding:6px 10px;background:var(--av);border:1px solid rgba(153,167,179,.4);border-radius:6px;font:500 .64rem/1.4 var(--fm);color:var(--gb)}
+.sbar b{color:var(--nv)}.warn{color:var(--er)}
+.csi-log{margin-top:8px;border:1px dashed rgba(153,167,179,.4);border-radius:6px;padding:6px 10px;font:400 .62rem/1.5 var(--fm);color:var(--gb);max-height:90px;overflow-y:auto;background:#fff}
+.lg-err{color:var(--er);font-weight:600}.lg-ok{color:var(--nv);font-weight:600}
+.confirm{display:none;margin-top:12px;background:var(--av);border:1px solid rgba(57,84,107,.2);border-left:4px solid var(--nv);border-radius:6px;padding:12px}.confirm.show{display:block}
+.ctag{display:block;font:500 10px var(--fb);letter-spacing:.18em;text-transform:uppercase;color:var(--gb);margin-bottom:4px}
+.cdet{font:500 .8rem/1.4 var(--fm);margin-bottom:4px}
+.bcp,.bcr{width:100%;margin-top:7px;border-radius:6px;padding:9px;font:600 .8rem/1 var(--ft);cursor:pointer}
+.bcp{background:#fff;color:var(--nv);border:1px solid var(--nv)}
+.bcr{background:var(--av);color:var(--gb);border:1px dashed var(--gc)}
+#confirmPrint[hidden],#confirmReminder[hidden]{display:none}
+.fg.invalid input,.fg.invalid select{border-color:var(--er);background:#FDF7F6}
+.emsg{display:none;margin-top:3px;font:500 .66rem/1.3 var(--fb);color:var(--er)}.fg.invalid .emsg{display:block}
+.sp{border:1px solid rgba(153,167,179,.4);border-radius:8px;overflow:hidden;margin-bottom:10px}.sp.invalid{border-color:var(--er)}
+.stool{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--av);border-bottom:1px solid rgba(153,167,179,.4)}
+.sttl{font:500 9px var(--fb);letter-spacing:.18em;text-transform:uppercase;color:var(--gb)}
+.wnav{display:flex;align-items:center;gap:5px}
+.wnav button{width:24px;height:24px;border:1px solid #C7CFD6;border-radius:5px;background:#fff;color:var(--nv);font:600 12px/1 var(--fb);cursor:pointer}.wnav button:disabled{opacity:.35}
+.wlab{font:500 .66rem var(--fm);color:var(--gb)}
+.gscr{overflow-x:auto;background:#fff}
+.sgrid{width:100%;min-width:340px;border-collapse:collapse;table-layout:fixed}
+.sgrid th,.sgrid td{border:1px solid rgba(153,167,179,.35)}
+.sgrid thead th{background:var(--nv);color:#fff;padding:4px 2px;text-align:center}
+.sgrid thead th.corner{width:44px}.sgrid thead th.day--closed{background:var(--gb)}
+.ddw{display:block;font:500 8px/11px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--gc)}
+.dnm{display:block;font:500 12px/14px var(--fm);margin-top:1px}
+.dtag{display:inline-block;margin-top:1px;font:500 7px/10px var(--fb);letter-spacing:.1em;text-transform:uppercase;padding:1px 3px;border-radius:3px}
+.dtag--closed{color:var(--av);border:1px solid rgba(247,244,237,.45)}
+.dtag--today{background:var(--av);color:var(--nv)}
+.stm{font:500 .64rem var(--fm);color:var(--gb);text-align:right;padding:0 6px;background:var(--av);white-space:nowrap}
+tr.sbr td{padding:2px 6px;background:var(--av);text-align:center;font:500 8px var(--fb);letter-spacing:.15em;text-transform:uppercase;color:var(--gc)}
+td.cell{padding:0;height:28px}
+.cb{display:block;width:100%;height:28px;border:none;background:transparent;cursor:pointer;font:700 11px/1 var(--fb);color:transparent}
+td.c-a .cb:hover{background:rgba(0,28,58,.08);box-shadow:inset 0 0 0 2px var(--nv)}
+td.c-s{background:var(--nv)}td.c-s .cb{color:#fff}
+td.c-o{background:repeating-linear-gradient(45deg,rgba(57,84,107,.38) 0 3px,rgba(57,84,107,.14) 3px 6px)}td.c-o .cb{color:var(--gb);cursor:not-allowed}
+td.c-p{background:#EFEEE8}td.c-p .cb,td.c-cl .cb{cursor:not-allowed}
+td.c-cl{background:repeating-linear-gradient(-45deg,rgba(153,167,179,.22) 0 4px,rgba(153,167,179,.07) 4px 8px)}
+.sleg{display:flex;flex-wrap:wrap;gap:4px 10px;padding:6px 10px;background:var(--av);border-top:1px solid rgba(153,167,179,.4);font-size:.62rem;color:var(--gb)}
+.lsw{display:inline-block;width:10px;height:10px;border-radius:2px;border:1px solid rgba(57,84,107,.45);background:#fff;margin-right:3px;vertical-align:-1px}
+.lsw--s{background:var(--nv)}.lsw--o{background:repeating-linear-gradient(45deg,rgba(57,84,107,.5) 0 3px,rgba(57,84,107,.2) 3px 6px)}
+.ssel{padding:6px 10px;background:#fff;border-top:1px solid rgba(153,167,179,.4);font-size:.72rem;color:var(--gb)}
+.ssel strong{color:var(--nv);font:500 .72rem var(--fm)}
+.slerr{display:none;margin:0 0 10px;padding:7px 10px;background:#FBEFEC;border-left:3px solid var(--er);border-radius:4px;font:500 .74rem/1.4 var(--fb);color:#8E1F17}.slerr.show{display:block}
+.fh2{font:600 1.4rem/1.2 var(--ft);margin:30px 0 4px}
+.fps{color:var(--gb);font-size:.88rem;margin-bottom:18px}
+.schip{display:none;vertical-align:middle;margin-left:7px;padding:4px 10px;border:1px solid var(--gb);border-radius:999px;font:500 10px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--gb)}.schip.show{display:inline-block}
+.fasc{display:flex;flex-direction:column;align-items:center;gap:28px}
+.doc{width:100%;max-width:800px;background:#fff;padding:36px 40px;border:1px solid var(--gc);box-shadow:0 14px 34px -18px rgba(0,28,58,.25);font-size:11px;line-height:1.45;color:#000}
+.filled{color:var(--nv);font-weight:600}
+.editable[contenteditable="true"]{cursor:text}
+@media screen{.filled{background:rgba(0,28,58,.07)}.editable[contenteditable="true"]:hover{background:rgba(153,167,179,.14)}}
+.dcover{text-align:center}
+.dcover h2{font:600 14px/1.2 var(--ft);text-transform:uppercase;letter-spacing:.06em;margin:4px 0 2px}
+.dlogo{height:48px;display:block;margin:0 auto 6px}
+.cttl{margin:16px 0 14px;padding:10px 8px;border-top:2px solid var(--nv);border-bottom:2px solid var(--nv)}
+.cttl h1{font:600 24px/1.1 var(--ft);margin-bottom:4px}.cttl p{font-size:10px;color:#333}
+.cmeta{display:flex;gap:10px;text-align:left;margin-bottom:12px}
+.cmeta>div{flex:1;border:1px solid #999;padding:6px 8px}
+.cmeta .fv{border-bottom:none}
+.cnum{font:500 13px/1.2 var(--fm);min-height:15px;padding-top:2px}
+.cidx{list-style:none;text-align:left;margin-top:4px}
+.cidx li{padding:5px 0 5px 5px;border-bottom:1px dashed rgba(153,167,179,.5);font-size:10px;display:flex;gap:8px}
+.cidx li:last-child{border:none}.cidx li::before{content:"→";color:var(--nv);font-weight:700}
+.dh{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:10px}
+.dh h2{font:600 13px/1.2 var(--ft);text-transform:uppercase;letter-spacing:.04em}.dh h3{font:600 11px/1.3 var(--ft);margin-top:5px}.dh p{font-size:10px;margin:2px 0}
+.mtag{display:block;font:500 8px var(--fb);letter-spacing:.18em;text-transform:uppercase;color:#555;margin-top:4px}
+.dleg{font-size:8px;color:#333}
+.dst{font-weight:600;background:#EDEDEA;border-left:3px solid var(--nv);padding:3px 6px;margin:10px 0 6px;font-size:11px}
+.dfr{display:flex;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.fgp{flex:1;min-width:110px}
+.fl{display:block;font-weight:600;font-size:10px}
+.fv{border-bottom:1px dotted #666;min-height:15px;padding-top:2px;font-size:11px}
+.lt{font-size:9px;text-align:justify;color:#222;margin-top:6px;line-height:1.4}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;font-size:10px}
+.sb{border-top:1px solid #000;text-align:center;padding-top:3px;margin-top:18px;font-size:10px}
+.att .fgp p{margin:2px 0;font-size:10px}
+.stamp{border:1px dashed #666;padding:10px;text-align:center;display:flex;align-items:center;justify-content:center}
+.ot,.ct{cursor:pointer;-webkit-user-select:none;user-select:none}
+.ct{font-weight:700;white-space:nowrap}
+.crw,.cor{display:flex;gap:8px;align-items:flex-start;padding:3px 5px;margin-top:4px;font-size:10px}
+.crw strong,.cor strong{white-space:nowrap}
+.pact{text-align:center;margin-top:20px}
+.bpr{background:var(--nv);color:#fff;border:none;border-radius:6px;padding:12px 24px;font:600 .9rem var(--ft);cursor:pointer}.bpr:disabled{opacity:.6}
+.rov{position:fixed;inset:0;z-index:2000;background:rgba(0,13,28,.62);display:flex;align-items:center;justify-content:center;padding:16px}.rov[hidden]{display:none}
+.rmod{width:100%;max-width:460px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 24px 48px -16px rgba(0,13,28,.6);max-height:90vh;overflow-y:auto}
+.rhead{position:relative;background:var(--nv);color:#fff;padding:14px 48px 12px 18px}
+.rhead h3{font:600 1.15rem/1.2 var(--ft);margin-top:3px}
+.rcls{position:absolute;top:10px;right:10px;width:28px;height:28px;background:none;border:1px solid var(--gc);border-radius:6px;color:#fff;font:600 15px/1 var(--fb);cursor:pointer}
+.rbd{padding:14px 16px 4px}
+.rdet{border:1px solid rgba(57,84,107,.2);border-radius:8px;overflow:hidden}
+.rdet>div{display:flex;gap:10px;padding:7px 12px;border-bottom:1px dashed rgba(57,84,107,.2)}
+.rdet>div:last-child{border:none}
+.rdet dt{flex:0 0 100px;font:500 .62rem/1.5 var(--fb);letter-spacing:.1em;text-transform:uppercase;color:var(--gb);padding-top:3px}
+.rdet dd{font:500 .82rem/1.4 var(--fb)}
+.rpl{margin:8px 0 4px;font:400 .7rem/1.5 var(--fb);color:var(--gb);background:var(--av);border-left:3px solid var(--nv);padding:7px 10px;border-radius:4px}
+.ract{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 16px 4px}
+.rb{border:none;border-radius:6px;padding:9px 10px;font:600 .76rem/1.25 var(--ft);cursor:pointer;text-align:center}
+.rb--i{background:var(--nv);color:#fff}.rb--m{background:#fff;color:var(--nv);border:1px solid var(--nv)}
+.rb--c{background:var(--av);color:var(--nv);border:1px solid var(--gb)}
+.rb--x{background:transparent;color:var(--gb);border:1px solid var(--gc)}.rb--x.armed{border-color:var(--er);color:var(--er);background:#FDF7F6}
+.rfb{min-height:26px;margin:8px 16px 12px;font:500 .72rem/1.4 var(--fb);color:var(--gb)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(16px);background:var(--nv);color:#fff;border-radius:8px;padding:10px 18px;font:600 .78rem/1.3 var(--ft);opacity:0;pointer-events:none;transition:.25s;z-index:3000;max-width:84vw;text-align:center}.toast.show{opacity:1;transform:translateX(-50%)}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:960px;margin:0 auto}
+.cbox{background:#fff;border:1px solid rgba(57,84,107,.2);border-radius:10px;padding:20px}
+.cbox h3{font:600 1.05rem/1.2 var(--ft);margin-bottom:6px}.cbox p{font-size:.86rem;color:var(--gb);margin-bottom:4px}
+.gdpr{max-width:820px;margin:0 auto;background:#fff;border:1px solid rgba(57,84,107,.2);border-radius:10px;padding:28px 32px;font-size:.86rem;line-height:1.6}
+.gdpr h3{font:600 1rem/1.2 var(--ft);margin:16px 0 6px;color:var(--nv)}
+.gdpr p,.gdpr li{color:#333}.gdpr ul{padding-left:18px;margin:6px 0}
+footer{background:var(--nv);color:#fff;padding:36px 5% 0}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px;max-width:1080px;margin:0 auto;padding-bottom:24px;align-items:start}
+.fbrand{display:flex;gap:12px;align-items:flex-start}
+.fbrand img{height:44px}
+.fgrid h4{font:600 .9rem/1.3 var(--ft);margin-bottom:8px}
+footer p{color:var(--gc);font-size:.8rem;margin-bottom:4px}
+.flink{color:var(--gc);cursor:pointer;font-size:.8rem;display:block;margin-bottom:4px;background:none;border:none;text-align:left;padding:0}
+.flink:hover{color:#fff}
+.fbot{border-top:1px solid rgba(57,84,107,.6);padding:12px 0 18px;text-align:center;color:var(--gc);font:400 .72rem var(--fm)}
+@media(max-width:940px){.hgrid{grid-template-columns:1fr;gap:24px}.steps{grid-template-columns:1fr}.g2{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}.igrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.dn{display:none}.mbtn{display:inline-flex}.fgrid{grid-template-columns:1fr;gap:20px}.doc{padding:20px 14px}.gdpr{padding:18px 16px}.cmeta{flex-direction:column}.section{padding:36px 5%}.frow{flex-direction:column}.ract{grid-template-columns:1fr}.fq-head{flex-direction:column;text-align:center}.igrid{grid-template-columns:1fr}}
+@media print{
+@page{size:A4;margin:10mm}html,body{background:#fff!important}
+body::before,header,footer,.page,.no-print,.back,.ptit,.psub,.fh2,.fps,.booking,.confirm,.slerr,.pact,.rov,.toast,.hero-faq,.sec-fq,.sec-faq-gen,.lbx{display:none!important}
+#page-prenota{display:block!important;background:#fff!important}
+.pwrap{max-width:none!important;padding:0!important}
+.fasc{display:block!important}
+#coverSheet,#mandatoForm{page-break-after:always;break-after:page}
+.doc{width:auto;max-width:none;margin:0;padding:0;border:none;box-shadow:none;font-size:9px;line-height:1.3}
+.dlogo{height:34px;margin:0 auto 4px}
+.dst{font-size:9px;padding:2px 5px;margin:7px 0 4px}
+.dfr{margin-bottom:4px;gap:10px}.fl{font-size:8px}.fv{font-size:9px;min-height:11px}
+.lt{font-size:7px;line-height:1.26;margin-top:3px}
+.sg{margin-top:7px;gap:12px;font-size:8px}
+.cttl h1{font-size:21px}
+.filled{background:transparent!important;color:#001C3A}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9D29A"/><stop offset="1" stop-color="#B78E3E"/></linearGradient>
+<linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EDF0F3"/><stop offset="1" stop-color="#8FA0AE"/></linearGradient>
+<path id="ar" d="M32 8.5 L38.8 17.4 H35 V24.6 H29 V17.4 H25.2 Z"/>
+<symbol id="csi" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="url(#g1)" stroke-width="5"/><use href="#ar" fill="url(#g1)"/><use href="#ar" fill="url(#g2)" transform="rotate(90 32 32)"/><use href="#ar" fill="url(#g1)" transform="rotate(180 32 32)"/><use href="#ar" fill="url(#g2)" transform="rotate(270 32 32)"/></symbol>
+</defs></svg>
+
+<header><div class="hi">
+<span class="brand" data-go="home" tabindex="0" role="button"><svg class="bm"><use href="#csi"/></svg><span><span class="bn">C.S.I.</span><span class="bs">Centro Servizi Integrati</span></span></span>
+<nav class="dn"><ul>
+<li><a data-go="home" tabindex="0" role="button">Home</a></li>
+<li><a data-sec="spid" tabindex="0" role="button">Servizi</a></li>
+<li><a data-go="faq" tabindex="0" role="button">FAQ</a></li>
+<li><a data-go="contatti" tabindex="0" role="button">Contatti</a></li>
+<li><a data-go="privacy" tabindex="0" role="button">Privacy</a></li>
+<li><a data-go="prenota" class="cta" tabindex="0" role="button">Prenota</a></li></ul></nav>
+<button class="mbtn" id="menuToggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+</div><nav class="mnav" id="mobileNav">
+<a data-go="home">Home</a><a data-sec="spid">Servizi</a><a data-go="faq">FAQ</a>
+<a data-go="contatti">Contatti</a><a data-go="privacy">Privacy</a>
+<a data-go="prenota" style="font-weight:600">Prenota</a></nav></header>
+
+<!-- HOME -->
+<section class="page" id="page-home">
+<div class="hero"><div class="hgrid">
+<div>
+<span class="hbadge"><img src="/img/99c64abe-efb9-4539-ad1a-f2402e23b438.jpg" alt="ACLI" onerror="this.style.display='none'">ACLI Ceglie del Campo — Bari</span>
+<h1>I tuoi servizi digitali SPID e PEC in sede, senza attese.</h1>
+<p class="hlead">Attivazione SPID e PEC con consulenza dedicata degli operatori. Dalla pagina «Prenota» compila la registrazione: il fascicolo con i moduli si genera automaticamente.</p>
+<ul class="hpts"><li>Riconoscimento di persona in sede</li><li>Operatore dedicato</li><li>Credenziali attive a fine appuntamento</li><li>Fasce da 30 minuti, lun–ven</li></ul>
+<span class="hcta" data-go="prenota" tabindex="0" role="button">Prenota il tuo appuntamento →</span>
+<p class="hnote">Ricevimento: lun–ven 09:00–12:00 e 16:00–18:00 · Piazza Vittorio Emanuele, 70129 Bari</p>
+</div>
+<div class="himg">
+<img src="/img/9b43d6a4-837f-49d8-a482-05334e244150.jpeg" alt="Sportello digitale C.S.I. — autenticazione SPID" onerror="this.parentNode.innerHTML='<div style=padding:60px;text-align:center;color:#99A7B3;font:600 1rem Inter Tight>🔐 Sportello Digitale C.S.I.</div>'">
+<div class="cap"><b>Sportello digitale C.S.I.</b>Attivazione e autenticazione SPID assistita in sede</div>
+</div>
+</div></div>
+<section class="section sav" id="spid"><div class="wrap">
+<div class="shead"><span class="ey eyd">Servizi digitali</span><h2>I nostri servizi digitali</h2><p class="sub">Assistenza completa per le tue credenziali digitali.</p></div>
+<div class="g2">
+<article class="card au"><div class="cmed"><img src="/img/19cc0d6a-33ab-4c35-8dce-d8634064b5ec.jpg" alt="SPID" loading="lazy"></div>
+<div class="cbd"><span class="ey eyd">SPID — Identità digitale</span><h3>SPID Easy — Rilascio assistito</h3><p>Attivazione Identità Digitale Livello 2 in sede con operatore.</p>
+<ul><li>Riconoscimento di persona immediato</li><li>Configurazione app sullo smartphone</li><li>Consegna credenziali e recupero password</li><li>Supporto INPS, Entrate e FSE</li></ul></div></article>
+<article class="card au" id="pec"><div class="cmed"><img src="/img/8d431861-828f-4b64-858a-a4281dd7579f.jpg" alt="PEC" loading="lazy"></div>
+<div class="cbd"><span class="ey eyd">PEC — Posta certificata</span><h3>PEC Certificata — Domicilio digitale</h3><p>Casella di posta a valore legale equiparato a raccomandata A/R.</p>
+<ul><li>Casella PEC con notifica SMS/e-mail</li><li>Attivazione e Domicilio Digitale INAD</li><li>Archiviazione sicura di ricevute</li><li>Configurazione su client e smartphone</li></ul></div></article>
+</div></div></section>
+<section class="section snv" id="come"><div class="wrap">
+<div class="shead"><span class="ey">Procedura</span><h2>Come funziona</h2></div>
+<div class="steps">
+<div class="step au"><b>01 / 03</b><h3>Registrati</h3><p>Compila il modulo nella pagina «Prenota» e scegli la fascia nella griglia settimanale.</p></div>
+<div class="step au"><b>02 / 03</b><h3>Vieni in sede</h3><p>Porta documento d'identità, tessera sanitaria e smartphone.</p></div>
+<div class="step au"><b>03 / 03</b><h3>Stampa</h3><p>Stampa il fascicolo su 3 pagine A4: al termine si apre il promemoria (.ics, e-mail, cambio, annulla).</p></div>
+</div></div></section>
+<section class="section swh" id="confronto"><div class="wrap">
+<div class="shead"><span class="ey eyd">Guida rapida</span><h2>SPID vs PEC</h2></div>
+<div class="tscr"><table class="cpt">
+<thead><tr><th></th><th>SPID</th><th>PEC</th></tr></thead>
+<tbody>
+<tr><td><strong>Funzione</strong></td><td>Autenticazione e accesso PA</td><td>Comunicazioni a valore legale</td></tr>
+<tr><td><strong>Equivalente</strong></td><td>Carta d'identità</td><td>Raccomandata A/R</td></tr>
+<tr><td><strong>Ambiti</strong></td><td>INPS, Entrate, FSE, Concorsi</td><td>Disdette, comunicazioni PA</td></tr>
+<tr><td><strong>Valore</strong></td><td>Certifica identità di chi accede</td><td>Certifica data, ora, consegna</td></tr>
+<tr><td><strong>Presso C.S.I.</strong></td><td>Assistito in sede con operatore</td><td>Attivazione immediata con guida</td></tr>
+</tbody></table></div>
+</div></section>
+</section>
+
+<!-- FAQ -->
+<section class="page" id="page-faq">
+<div class="hero-faq">
+<h1>Domande frequenti</h1>
+<p>Guide visive e risposte su SPID e PEC — con infografiche interattive</p>
+</div>
+<section class="sec-fq sec-fq-spid" id="sec-spid-faq">
+<div class="fq-head al">
+<div class="fq-logo" data-img="/img/19cc0d6a-33ab-4c35-8dce-d8634064b5ec.jpg"><img src="/img/19cc0d6a-33ab-4c35-8dce-d8634064b5ec.jpg" alt="SPID"></div>
+<div><span class="badge">⚡ Identità Digitale Nazionale</span><h2><span class="shimmer">SPID</span> — Sistema Pubblico di Identità Digitale</h2></div>
+</div>
+<div class="igrid">
+<div class="icard au"><span class="num">01</span><div class="ico">🪪</div><h3>Identità Unica</h3><p>Una sola coppia di credenziali per tutti i servizi online della PA.</p></div>
+<div class="icard au"><span class="num">02</span><div class="ico">🔐</div><h3>Sicurezza 3 Livelli</h3><p>Il C.S.I. assiste al rilascio del Livello 2 con riconoscimento in sede.</p></div>
+<div class="icard au"><span class="num">03</span><div class="ico">🇪🇺</div><h3>Copertura UE</h3><p>Valido in tutta l'Unione Europea (eIDAS).</p></div>
+<div class="icard au"><span class="num">04</span><div class="ico">🏛️</div><h3>Accesso Unico</h3><p>INPS, Entrate, FSE, bonus e concorsi: un solo accesso.</p></div>
+</div>
+<div class="infog az" data-img="/img/b8dc1f24-3f30-44cc-9ccb-134a677e5543.jpeg">
+<div class="lbl"><span>Infografica SPID — Fatti e FAQ</span><span class="zoom">🔍 Ingrandisci</span></div>
+<img src="/img/b8dc1f24-3f30-44cc-9ccb-134a677e5543.jpeg" alt="Infografica SPID" loading="lazy">
+</div>
+</section>
+<section class="sec-fq sec-fq-pec" id="sec-pec-faq">
+<div class="fq-head ar">
+<div class="fq-logo" data-img="/img/8d431861-828f-4b64-858a-a4281dd7579f.jpg"><img src="/img/8d431861-828f-4b64-858a-a4281dd7579f.jpg" alt="PEC"></div>
+<div><span class="badge">⚖️ Valore Legale Certificato</span><h2><span class="shimmer">PEC</span> — Posta Elettronica Certificata</h2></div>
+</div>
+<div class="igrid">
+<div class="icard au"><span class="num">01</span><div class="ico">⚖️</div><h3>Valore Legale</h3><p>Equiparata alla raccomandata A/R: certifica data, ora, consegna.</p></div>
+<div class="icard au"><span class="num">02</span><div class="ico">🏢</div><h3>Obbligatoria</h3><p>Per imprese, professionisti e comunicazioni PA (INAD).</p></div>
+<div class="icard au"><span class="num">03</span><div class="ico">🛡️</div><h3>Tracciabilità</h3><p>Ricevute con marca temporale: prove legali inattaccabili.</p></div>
+<div class="icard au"><span class="num">04</span><div class="ico">📋</div><h3>Ufficiale</h3><p>Disdette, comunicazioni PA: se serve prova legale, serve PEC.</p></div>
+</div>
+<div class="infog az" data-img="/img/3e441753-c3ce-49f5-a81c-1235851792b8.png">
+<div class="lbl"><span>Infografica PEC — Fatti e FAQ</span><span class="zoom">🔍 Ingrandisci</span></div>
+<img src="/img/3e441753-c3ce-49f5-a81c-1235851792b8.png" alt="Infografica PEC" loading="lazy">
+</div>
+</section>
+<section class="sec-faq-gen" id="sec-faq-gen">
+<h2>❓ Domande Frequenti</h2>
+<div class="faq-list">
+
+
+
+
+
+
+
+</div>
+</section>
+</section>
+
+<!-- CONTATTI -->
+<section class="page" id="page-contatti"><div class="pwrap"><div class="wrap">
+<span class="back" data-go="home">← Home</span>
+<h1 class="ptit">Contatti</h1>
+<div class="cgrid">
+<div class="cbox au"><h3>📍 Sede</h3><p><strong>ACLI Ceglie del Campo — C.S.I.</strong><br>Piazza Vittorio Emanuele, 70129 Bari (BA)</p><p>Direttore: Cassano Giuseppe</p></div>
+<div class="cbox au"><h3>🕒 Orari</h3><p><strong>Lun–Ven</strong><br>09:00–12:00 · 16:00–18:00</p><p>Sab–Dom: chiuso</p></div>
+<div class="cbox au"><h3>✉️ Recapiti</h3><p>E-mail: <strong>info.csi.bari@gmail.com</strong></p></div>
+</div>
+</div></div></section>
+
+<!-- PRIVACY -->
+<section class="page" id="page-privacy"><div class="pwrap"><div class="wrap">
+<span class="back" data-go="home">← Home</span>
+<h1 class="ptit">Privacy e GDPR</h1>
+<div class="gdpr au">
+<h3>1. Titolare</h3>
+<p><strong>ACLI Sezione Ceglie del Campo — C.S.I.</strong>, Piazza Vittorio Emanuele, 70129 Bari. Responsabile: Direttore Cassano Giuseppe pro-tempore. Contatto: <strong>info.csi.bari@gmail.com</strong>.</p>
+<h3>2. Dati trattati</h3>
+<ul><li>Dati identificativi e anagrafici del modulo</li><li>Dati dell'appuntamento (servizio, data, fascicolo)</li><li>Dati particolari solo previo consenso (art. 9 GDPR)</li><li>Nessun cookie di profilazione: solo localStorage tecnico</li></ul>
+<h3>3. Finalità</h3>
+<ul><li>Esecuzione del mandato (art. 6.1.b); obblighi di legge (art. 6.1.c); comunicazioni su consenso (art. 6.1.a)</li></ul>
+<h3>4. Durata</h3>
+<ul><li>Fascicolo: 10 anni · localStorage: fino a cancellazione</li></ul>
+<h3>5. Diritti</h3>
+<p>Artt. 15–22 GDPR: accesso, rettifica, cancellazione, limitazione, portabilità, opposizione. Reclamo al Garante (www.garanteprivacy.it). Richieste a <strong>info.csi.bari@gmail.com</strong>.</p>
+</div>
+</div></div></section>
+
+<!-- PRENOTA -->
+<section class="page" id="page-prenota"><div class="pwrap wrap">
+<span class="back" data-go="home">← Home</span>
+<h1 class="ptit">Prenota il tuo appuntamento</h1>
+<div class="booking">
+<div class="bhead"><span class="ey eyd">Registrazione cliente</span><h2>Prenota e conferma</h2></div>
+<form id="appointmentForm" novalidate onsubmit="return false;">
+<div class="fg"><label for="servizio">Servizio</label><select id="servizio"><option value="SPID + PEC">Pacchetto Completo</option><option value="SPID">Rilascio SPID</option><option value="PEC">Attivazione PEC</option></select><span class="emsg" id="err-servizio"></span></div>
+<div class="fg"><label for="nome_cognome">Nome e cognome</label><input type="text" id="nome_cognome" placeholder="Mario Rossi"><span class="emsg" id="err-nome_cognome"></span></div>
+<div class="frow">
+<div class="fg"><label for="codice_fiscale">Codice fiscale</label><input type="text" id="codice_fiscale" placeholder="RSSMRA80A01A662X" maxlength="16"><span class="emsg" id="err-codice_fiscale"></span></div>
+<div class="fg"><label for="telefono">Telefono</label><input type="tel" id="telefono" placeholder="333 1234567"><span class="emsg" id="err-telefono"></span></div></div>
+<div class="frow">
+<div class="fg"><label for="email">E-mail</label><input type="email" id="email" placeholder="nome@esempio.it"><span class="emsg" id="err-email"></span></div>
+<div class="fg"><label for="data_nascita">Data di nascita</label><input type="date" id="data_nascita"><span class="emsg" id="err-data_nascita"></span></div></div>
+<div class="frow">
+<div class="fg"><label for="luogo_nascita">Luogo di nascita</label><input type="text" id="luogo_nascita" placeholder="Bari"><span class="emsg" id="err-luogo_nascita"></span></div>
+<div class="fg"><label for="sesso">Sesso</label><select id="sesso"><option value="">—</option><option value="M">M</option><option value="F">F</option></select><span class="emsg" id="err-sesso"></span></div></div>
+<div class="frow">
+<div class="fg"><label for="residenza">Città</label><input type="text" id="residenza" placeholder="Bari"><span class="emsg" id="err-residenza"></span></div>
+<div class="fg"><label for="cittadinanza">Cittadinanza</label><select id="cittadinanza"><option>Italiana</option><option>Altra</option></select><span class="emsg" id="err-cittadinanza"></span></div></div>
+<div class="frow">
+<div class="fg" style="flex:1.6"><label for="indirizzo">Indirizzo</label><input type="text" id="indirizzo" placeholder="Via Roma"><span class="emsg" id="err-indirizzo"></span></div>
+<div class="fg" style="flex:.7"><label for="civico">Civico</label><input type="text" id="civico" placeholder="12" maxlength="6"><span class="emsg" id="err-civico"></span></div>
+<div class="fg" style="flex:.8"><label for="cap">C.A.P.</label><input type="text" id="cap" placeholder="70129" maxlength="5"><span class="emsg" id="err-cap"></span></div></div>
+<div class="subh"><span class="ey">Data e ora</span><p>Scegli dai campi o tocca un quadrato libero nella griglia.</p></div>
+<div class="frow">
+<div class="fg"><label for="data_app">Data</label><input type="date" id="data_app"><span class="emsg" id="err-data_app"></span></div>
+<div class="fg"><label for="ora_app">Orario</label><select id="ora_app"><option value="">—</option><optgroup label="Mattina"><option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option></optgroup><optgroup label="Pomeriggio"><option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option></optgroup></select><span class="emsg" id="err-ora_app"></span></div></div>
+<div class="sp" id="slotPicker">
+<div class="stool"><span class="sttl">Disponibilità</span><div class="wnav"><button type="button" id="weekPrev">‹</button><span class="wlab" id="weekLabel">—</span><button type="button" id="weekNext">›</button></div></div>
+<div class="gscr"><table class="sgrid" id="slotGrid"></table></div>
+<div class="sleg"><span><span class="lsw"></span>libera</span><span><span class="lsw lsw--s"></span>sel.</span><span><span class="lsw lsw--o"></span>occupata</span></div>
+<p class="ssel" id="slotSelected">Nessuna fascia selezionata.</p>
+</div>
+<p class="slerr" id="slotError">Seleziona data e orario.</p>
+<div class="sbar"><span>Campi: <b id="sbF">0/15</b></span><span>Archivio: <b id="sbA">—</b></span></div>
+<button type="submit" class="bsub" id="submitBtn">Conferma e genera fascicolo</button>
+<div class="sHint" id="submitHint">Controlla i campi in rosso e ripremi.</div>
+<div class="csi-log" id="csiLog"></div>
+</form>
+<div class="confirm" id="confirmBox">
+<span class="ctag">Confermata</span>
+<div class="cdet" id="confirmDetails"></div>
+<button type="button" class="bcp js-print" id="confirmPrint" hidden>Stampa fascicolo (3 pagine)</button>
+<button type="button" class="bcr" id="confirmReminder" hidden>Promemoria appuntamento</button>
+</div>
+</div>
+<h2 class="fh2 no-print">Fascicolo cliente<span class="schip" id="statusChip">generato</span></h2>
+<div class="fasc" id="fascicolo">
+<div class="doc dcover" id="coverSheet">
+<img class="dlogo" src="/img/a18a2902-82b6-443a-8aea-8ed38769d71a.png" alt="Logo C.S.I." onerror="this.style.display='none'">
+<h2>C.S.I. — Centro Servizi Integrati</h2>
+<p>ACLI Ceglie del Campo · Piazza Vittorio Emanuele, 70129 Bari</p>
+<div class="cttl"><h1>Fascicolo Cliente</h1><p>Scheda di registrazione</p></div>
+<div class="cmeta"><div><span class="fl">N. fascicolo</span><div class="cnum" id="cov_numero">—</div></div><div><span class="fl">Data</span><div class="fv mono" id="cov_data">—</div></div><div><span class="fl">Operatore</span><div class="fv editable" contenteditable="true">&nbsp;</div></div></div>
+<div class="dst" style="text-align:left">DATI ASSISTITO</div>
+<div class="dfr"><div class="fgp" style="flex:2"><span class="fl">Assistito:</span><div class="fv" id="cov_nome">&nbsp;</div></div><div class="fgp"><span class="fl">CF:</span><div class="fv mono" id="cov_cf">&nbsp;</div></div></div>
+<div class="dfr"><div class="fgp"><span class="fl">Telefono:</span><div class="fv mono" id="cov_tel">&nbsp;</div></div><div class="fgp"><span class="fl">Servizio:</span><div class="fv" id="cov_servizio">&nbsp;</div></div><div class="fgp"><span class="fl">Appuntamento:</span><div class="fv mono" id="cov_app">&nbsp;</div></div></div>
+</div>
+<div class="doc" id="mandatoForm">
+<img class="dlogo" src="/img/a18a2902-82b6-443a-8aea-8ed38769d71a.png" alt="Logo" onerror="this.style.display='none'">
+<div class="dh"><h2>C.S.I. Centro Servizi Integrati</h2><p>ACLI Ceglie del Campo — Bari</p><h3>MANDATO DI ASSISTENZA</h3></div>
+<div class="dst">1. DELEGANTE</div>
+<div class="dfr"><div class="fgp" style="flex:2.2"><span class="fl">Io sottoscritto/a:</span><div class="fv" id="man_nome">&nbsp;</div></div><div class="fgp"><span class="fl">Nato a:</span><div class="fv" id="man_nato_a">&nbsp;</div></div><div class="fgp"><span class="fl">il:</span><div class="fv mono" id="man_dn">&nbsp;</div></div></div>
+<div class="dfr"><div class="fgp"><span class="fl">CF:</span><div class="fv mono" id="man_cf">&nbsp;</div></div><div class="fgp"><span class="fl">Tel:</span><div class="fv mono" id="man_tel">&nbsp;</div></div><div class="fgp"><span class="fl">E-mail:</span><div class="fv" id="man_email">&nbsp;</div></div></div>
+<div class="dst">2. OGGETTO</div>
+<div class="crw"><span class="ct" id="chkSpid" tabindex="0">[ <span style="color:#001C3A;font-weight:700">&nbsp;</span> ]</span><span><strong>2.1</strong> Rilascio SPID L2</span></div>
+<div class="crw"><span class="ct" id="chkPec" tabindex="0">[ <span style="color:#001C3A;font-weight:700">&nbsp;</span> ]</span><span><strong>2.2</strong> Attivazione PEC e INAD</span></div>
+<div class="crw"><span class="ct" id="chkConf" tabindex="0">[ <span style="color:#001C3A;font-weight:700">&nbsp;</span> ]</span><span><strong>2.3</strong> Configurazione dispositivi</span></div>
+<div class="dst">3. DICHIARAZIONI</div>
+<p class="lt">Dichiara che le informazioni sono veritiere (D.P.R. 445/2000); si impegna a esibire documento e tessera; autorizza le operazioni tecniche.</p>
+<div class="dst">4. SOTTOSCRIZIONE</div>
+<div class="dfr"><div class="fgp"><span class="fl">Luogo e data:</span><div class="fv" id="man_data">&nbsp;</div></div></div>
+<div class="sg"><div>Data: ______</div><div class="sb">Firma Delegante</div></div>
+<div class="dst">5. VALIDAZIONE</div>
+<div class="dfr att"><div class="fgp"><p><strong>OPERATORE</strong></p><p>Cognome: ______</p><p>Nome: ______</p><div class="sb">Firma</div></div>
+<div class="fgp"><p>BARI, <span class="mono" id="man_ds">__/__/____</span></p><div class="sb">Firma</div></div>
+<div class="fgp stamp"><strong>TIMBRO</strong></div></div>
+</div>
+<div class="doc" id="privacyForm">
+<img class="dlogo" src="/img/a18a2902-82b6-443a-8aea-8ed38769d71a.png" alt="Logo" onerror="this.style.display='none'">
+<div class="dh"><h2>C.S.I. Centro Servizi Integrati</h2><h3>CONSENSO TRATTAMENTO DATI (GDPR)</h3></div>
+<div class="dst">1. DATI</div>
+<div class="dfr"><div class="fgp" style="flex:2.2"><span class="fl">Io sottoscritto/a:</span><div class="fv" id="out_nome">&nbsp;</div></div><div class="fgp"><span class="fl">Nato a:</span><div class="fv" id="out_nato">&nbsp;</div></div><div class="fgp"><span class="fl">il:</span><div class="fv mono" id="out_dn">&nbsp;</div></div></div>
+<div class="dfr"><div class="fgp"><span class="fl">CF:</span><div class="fv mono" id="out_cf">&nbsp;</div></div><div class="fgp"><span class="fl">Tel:</span><div class="fv mono" id="out_tel">&nbsp;</div></div><div class="fgp"><span class="fl">Appuntamento:</span><div class="fv mono" id="out_app">&nbsp;</div></div></div>
+<div class="dst">2. CONSENSO</div>
+<div class="cor ot" tabindex="0"><strong>SI [ <span style="color:#001C3A;font-weight:700">X</span> ] NO [ &nbsp; ]</strong><span>Trattamento dati per incarico ACLI.</span></div>
+<div class="cor ot" tabindex="0"><strong>SI [ <span style="color:#001C3A;font-weight:700">X</span> ] NO [ &nbsp; ]</strong><span>Comunicazioni future servizi ACLI.</span></div>
+<div class="dfr"><div class="fgp"><span class="fl">Data:</span><div class="fv" id="out_oggi">&nbsp;</div></div></div>
+<div class="dst">3. INFORMATIVA</div>
+<p class="lt"><strong>Titolare:</strong> ACLI Ceglie del Campo, Piazza Vittorio Emanuele, 70129 Bari. <strong>Responsabile:</strong> Cassano Giuseppe. <strong>Diritti GDPR:</strong> info.csi.bari@gmail.com. <strong>Punto 1:</strong> consenso dati sensibili (art. 116). <strong>Punto 2 (facoltativo):</strong> attività promozionali.</p>
+<div class="sg"><div>Data: ______</div><div class="sb">Firma Assistito</div></div>
+</div>
+</div>
+<div class="pact no-print"><button type="button" class="bpr js-print" id="mainPrintBtn">Stampa fascicolo (3 pagine A4)</button></div>
+</div></section>
+
+<div class="rov" id="rov" hidden>
+<div class="rmod">
+<div class="rhead"><h3>Promemoria</h3><button type="button" class="rcls" id="rClose">×</button></div>
+<div class="rbd"><dl class="rdet">
+<div><dt>Servizio</dt><dd id="r_svc">—</dd></div>
+<div><dt>Data</dt><dd class="mono" id="r_dt">—</dd></div>
+<div><dt>Fascicolo</dt><dd class="mono" id="r_num">—</dd></div></dl>
+<p class="rpl">Piazza Vittorio Emanuele, 70129 Bari · lun–ven 09–12 e 16–18. Porta: documento, tessera, smartphone.</p></div>
+<div class="ract"><button type="button" class="rb rb--i" id="rIcs">Scarica .ics</button><button type="button" class="rb rb--m" id="rMail">E-mail</button><button type="button" class="rb rb--c" id="rChg">Cambia</button><button type="button" class="rb rb--x" id="rCan">Cancella</button></div>
+<p class="rfb" id="rFb"></p>
+</div></div>
+<div class="toast" id="toast"></div>
+<div class="lbx" id="lbx"><div class="inner"><button class="cls" aria-label="Chiudi">×</button><img id="lbx-img" src="" alt=""></div></div>
+
+<footer><div class="fgrid">
+<div class="fbrand">
+<img src="/img/99c64abe-efb9-4539-ad1a-f2402e23b438.jpg" alt="ACLI" onerror="this.style.display='none'">
+<div><h4>C.S.I. — Centro Servizi Integrati</h4><p>ACLI Ceglie del Campo, Bari. Al servizio della persona, del lavoro e della comunità.</p></div>
+</div>
+<div><h4>Naviga</h4>
+<button class="flink" data-go="faq">FAQ</button><button class="flink" data-go="contatti">Contatti</button>
+<button class="flink" data-go="privacy">Privacy</button><button class="flink" data-go="prenota">Prenota</button></div>
+<div><h4>Contatti</h4><p><strong>info.csi.bari@gmail.com</strong></p><p>lun–ven 09–12 · 16–18</p></div>
+</div><div class="fbot">&copy; <span id="year"></span> C.S.I. — Brand Book 2025</div></footer>
+
+<script>
+(function(){
+'use strict';
+var $=function(i){return document.getElementById(i)};
+function p2(n){return('0'+n).slice(-2)}
+function log(m,c){var e=$('csiLog');if(!e)return;var d=document.createElement('div');if(c)d.className=c;d.textContent=m;e.appendChild(d);while(e.children.length>7)e.removeChild(e.firstChild)}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},3500)}
+function safe(f){try{f()}catch(e){try{log('✕ '+e.message,'lg-err')}catch(x){}}}
+/* ROUTER */
+var PAGES=['home','prenota','faq','contatti','privacy'];
+function show(pg){var f=PAGES.indexOf(pg)>-1?pg:'home';PAGES.forEach(function(p){var e=$('page-'+p);if(e)e.classList.toggle('on',p===f)});$('page-home').classList.toggle('off',f!=='home');try{window.scrollTo(0,0)}catch(e){}}
+safe(function(){
+ document.addEventListener('click',function(e){
+  var t=e.target&&e.target.closest?e.target.closest('[data-go],[data-sec]'):null;
+  if(!t)return;e.preventDefault();e.stopPropagation();
+  var go=t.getAttribute('data-go');if(go)show(go);
+  var sec=t.getAttribute('data-sec');
+  if(sec){show('home');setTimeout(function(){var el=document.getElementById(sec);if(el)el.scrollIntoView({behavior:'smooth'})},60)}
+  $('mobileNav').classList.remove('open');
+ },true);
+ $('menuToggle').onclick=function(){$('mobileNav').classList.toggle('open')};
+});
+/* ANIMAZIONI */
+safe(function(){
+ var obs=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('on');obs.unobserve(en.target)}})},{threshold:.15});
+ document.querySelectorAll('.au,.al,.ar,.az').forEach(function(el,i){el.style.transitionDelay=(i%4)*.1+'s';obs.observe(el)});
+});
+/* LIGHTBOX */
+safe(function(){
+ var lbx=$('lbx'),li=$('lbx-img');
+ document.querySelectorAll('[data-img]').forEach(function(el){
+  el.addEventListener('click',function(e){
+   if(e.target.tagName==='IMG'||e.target.classList.contains('zoom')||e.target.classList.contains('lbl')||e.target.closest('.fq-logo')||e.target.closest('.infog')){
+    li.src=el.getAttribute('data-img');lbx.classList.add('on');document.body.style.overflow='hidden'}
+  });
+ });
+ lbx.querySelector('.cls').onclick=function(){lbx.classList.remove('on');document.body.style.overflow='';li.src=''};
+ lbx.onclick=function(e){if(e.target===lbx){lbx.classList.remove('on');document.body.style.overflow='';li.src=''}};
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lbx.classList.contains('on')){lbx.classList.remove('on');document.body.style.overflow='';li.src=''}});
+});
+/* TILT 3D */
+safe(function(){
+ document.querySelectorAll('.icard').forEach(function(c){
+  c.addEventListener('mousemove',function(e){
+   var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+   c.style.transform='translateY(-5px) scale(1.02) rotateX('+(-y*5)+'deg) rotateY('+(x*5)+'deg)'});
+  c.addEventListener('mouseleave',function(){c.style.transform=''});
+ });
+});
+/* STORAGE */
+var mem={},P=(function(){try{localStorage.setItem('__t','1');localStorage.removeItem('__t');return true}catch(e){return false}})();
+function stG(k){if(P){try{return localStorage.getItem(k)}catch(e){}}return(k in mem)?mem[k]:null}
+function stS(k,v){if(P){try{localStorage.setItem(k,v);return}catch(e){}}mem[k]=String(v)}
+function stD(k){if(P){try{localStorage.removeItem(k)}catch(e){}}delete mem[k]}
+function jG(k){var r=stG(k);if(r==null)return null;try{return JSON.parse(r)}catch(e){return null}}
+function jS(k,v){try{stS(k,JSON.stringify(v))}catch(e){}}
+/* GRIGLIA */
+var SM=['09:00','09:30','10:00','10:30','11:00','11:30'],SP=['16:00','16:30','17:00','17:30'];
+var GI=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],GB=['LUN','MAR','MER','GIO','VEN','SAB','DOM'];
+var MB=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+var MW=8,wo=0,sel=null,cur=null,prevbk=null,ready=false,pw2=false;
+function iso(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
+function sow(d){var x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));x.setHours(0,0,0,0);return x}
+function we(d){return d.getDay()===0||d.getDay()===6}
+function fIT(s){var p=(s||'').split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:s}
+function loadB(){var b=jG('csi-b');return(b&&typeof b==='object')?b:{}}
+function saveB(b){jS('csi-b',b)}
+function bLab(b){if(!b)return'';var d=new Date(b.date+'T00:00:00');return GI[d.getDay()]+' '+d.getDate()+' '+MB[d.getMonth()]+' · ore '+b.time}
+var form=$('appointmentForm'),svc=$('servizio'),nm=$('nome_cognome'),cf=$('codice_fiscale'),tl=$('telefono'),em=$('email'),dn=$('data_nascita'),lg=$('luogo_nascita'),sx=$('sesso'),ct=$('cittadinanza'),rs=$('residenza'),inr=$('indirizzo'),cv=$('civico'),cp=$('cap'),da=$('data_app'),or=$('ora_app');
+function setMk(e,o){if(e)e.textContent=o?'X':'\u00A0'}
+function out(i,v){var e=$(i);if(!e)return;var s=(v!=null)?String(v).trim():'';e.textContent=s||'\u00A0';e.classList.toggle('filled',s!=='')}
+function setChk(i,o){var t=$(i);if(t)setMk(t.querySelector('.ct span,span:last-child'),!!o)}
+function svcT(){return svc.options[svc.selectedIndex].text}
+function appT(){if(sel)return fIT(sel.date)+' — ore '+sel.time;if(cur)return fIT(cur.date)+' — ore '+cur.time;return''}
+function prev_(){var c=cf.value.toUpperCase(),dnn=fIT(dn.value),s=svcT();
+ out('cov_nome',nm.value);out('cov_cf',c);out('cov_tl',tl.value);out('cov_servizio',s);out('cov_app',appT());
+ out('man_nome',nm.value);out('man_cf',c);out('man_tl',tl.value);out('man_email',em.value);out('man_nato_a',lg.value);out('man_dn',dnn);
+ out('out_nome',nm.value);out('out_cf',c);out('out_tl',tl.value);out('out_app',appT());out('out_nato',lg.value);out('out_dn',dnn)}
+function syncC(){var s=svc.value||'';['chkSpid','chkPec','chkConf'].forEach(function(id){var t=$(id);if(t)setMk(t.querySelector('span:last-child'),(id==='chkSpid'&&s.indexOf('SPID')>-1)||(id==='chkPec'&&s.indexOf('PEC')>-1)||(id==='chkConf'))})}
+function cellH(d,t,b,now){
+ var cl=we(d),bk=!!b[iso(d)+'T'+t],past=false;
+ if(wo===0){var s=new Date(d),h=t.split(':');s.setHours(+h[0],+h[1],0,0);past=s<=now}else if(wo<0)past=true;
+ var c='cell';if(cl)c+=' c-cl';else if(bk)c+=' c-o';else if(past)c+=' c-p';else c+=' c-a';
+ var is=sel&&sel.date===iso(d)&&sel.time===t;if(is)c+=' c-s';
+ return '<td class="'+c+'"><button type="button" class="cb" data-date="'+iso(d)+'" data-time="'+t+'"'+(cl||bk||past?' disabled':'')+'>'+(is?'✓':((bk&&!cl)?'✕':''))+'</button></td>'}
+function renderG(){
+ var g=$('slotGrid');if(!g)return;
+ var now=new Date(),w=sow(now);w.setDate(w.getDate()+wo*7);var b=loadB(),days=[];
+ for(var i=0;i<7;i++){var d=new Date(w);d.setDate(d.getDate()+i);days.push(d)}
+ var h='<thead><tr><th class="corner"><span class="ddw">ore</span></th>';
+ days.forEach(function(d,i){var cl=we(d);h+='<th'+(cl?' class="day--closed"':'')+'><span class="ddw">'+GB[i]+'</span><span class="dnm">'+d.getDate()+'</span>'+(cl?'<span class="dtag dtag--closed">chiuso</span>':'')+'</th>'});
+ h+='</tr></thead><tbody>';
+ SM.forEach(function(t){h+='<tr><th class="stm">'+t+'</th>';days.forEach(function(d){h+=cellH(d,t,b,now)});h+='</tr>'});
+ h+='<tr class="sbr"><td colspan="8">— pausa —</td></tr>';
+ SP.forEach(function(t){h+='<tr><th class="stm">'+t+'</th>';days.forEach(function(d){h+=cellH(d,t,b,now)});h+='</tr>'});
+ g.innerHTML=h+'</tbody>';
+ $('weekLabel').textContent=days[0].getDate()+'–'+days[6].getDate()+' '+MB[days[6].getMonth()];
+ $('weekPrev').disabled=wo<=0;$('weekNext').disabled=wo>=MW}
+function seed(){if(stG('csi-seeded'))return;var b=loadB(),d=new Date();d.setHours(0,0,0,0);var ts=['10:00','16:30','09:30'],n=0;
+ for(var i=0;i<21&&n<3;i++){if(!we(d)){b[iso(d)+'T'+ts[n]]=1;n++}d.setDate(d.getDate()+1)}
+ saveB(b);stS('csi-seeded','1')}
+function slotSt(dt,t){var d=new Date(dt+'T00:00:00');if(isNaN(d.getTime())||we(d))return'cl';var s=new Date(d),h=t.split(':');s.setHours(+h[0],+h[1],0,0);if(s<=new Date())return'past';if(loadB()[dt+'T'+t])return'occ';return'free'}
+function okDate(v){if(!v)return false;var d=new Date(v+'T00:00:00');if(isNaN(d.getTime())||we(d))return false;var t=new Date();t.setHours(0,0,0,0);if(d<t)return false;return Math.round((sow(d)-sow(new Date()))/604800000)<=MW}
+function fD(id,lab,ts,msg){return{el:$(id),lab:lab,test:ts,msg:msg,err:$('err-'+id),dyn:null}}
+var F=[
+ fD('servizio','Servizio',function(v){return!!v},'Seleziona.'),
+ fD('nome_cognome','Nome',function(v){return v.trim().length>=3},'Min 3.'),
+ fD('codice_fiscale','CF',function(v){return/^[A-Z0-9]{16}$/.test(v.trim().toUpperCase())},'16 caratteri.'),
+ fD('telefono','Tel',function(v){var d=v.replace(/\D/g,'');return d.length>=8&&d.length<=15},'8–15 cifre.'),
+ fD('email','E-mail',function(v){return/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())},'Valida.'),
+ fD('data_nascita','Nascita',function(v){if(!v)return false;var d=new Date(v+'T00:00:00');if(isNaN(d.getTime()))return false;var t=new Date();t.setHours(0,0,0,0);return d<=t},'Non futura.'),
+ fD('luogo_nascita','Luogo',function(v){return v.trim().length>=2},'Indica.'),
+ fD('sesso','Sesso',function(v){return v==='M'||v==='F'},'Seleziona.'),
+ fD('residenza','Città',function(v){return v.trim().length>=2},'Indica.'),
+ fD('cittadinanza','Cittad.',function(v){return!!v},'Seleziona.'),
+ fD('indirizzo','Indirizzo',function(v){return v.trim().length>=2},'Indica.'),
+ fD('civico','Civico',function(v){return v.trim().length>=1},'Indica.'),
+ fD('cap','CAP',function(v){return/^\d{5}$/.test(v.trim())},'5 cifre.'),
+ fD('data_app','Data',function(v){return okDate(v)},'Lun–ven.'),
+ fD('ora_app','Orario',function(v){if(!v)return false;var d=da.value;if(!d||!okDate(d))return false;return slotSt(d,v)==='free'},'Libera.')];
+var FM={};F.forEach(function(d){if(d.el)FM[d.el.id]=d});
+function setInv(d,on){if(!d.el)return;var fg=d.el.closest('.fg');if(fg)fg.classList.toggle('invalid',on);if(d.err)d.err.textContent=on?(d.dyn||d.msg):'';if(!on)d.dyn=null}
+function validate(foc){
+ var miss=[],fe=null;
+ F.forEach(function(d){if(!d.el)return;if(!d.test(d.el.value)){miss.push(d.lab);if(!fe)fe=d.el}else setInv(d,false)});
+ var pk=$('slotPicker'),se=$('slotError');
+ if(!sel&&!cur){if(pk)pk.classList.add('invalid');if(se)se.classList.add('show')}else{if(pk)pk.classList.remove('invalid');if(se)se.classList.remove('show')}
+ if(!miss.length)$('submitHint').classList.remove('show');
+ var a=$('sbF');if(a){a.textContent=(F.length-miss.length)+'/'+F.length;a.className=miss.length?'warn':''}
+ var c=$('sbA');if(c)c.textContent=P?'permanente':'sessione';
+ if(foc&&miss.length&&fe){fe.scrollIntoView({behavior:'smooth',block:'center'});try{fe.focus()}catch(e){}}
+ return miss}
+function trySync(){
+ var d=da.value,t=or.value;
+ if(d&&t&&okDate(d)){
+  var st=slotSt(d,t);
+  if(st==='free'){sel={date:d,time:t};setInv(FM['data_app'],false);setInv(FM['ora_app'],false);
+   var w=sow(new Date(d+'T00:00:00')),c=sow(new Date());wo=Math.max(0,Math.min(MW,Math.round((w-c)/604800000)));
+   renderG();$('slotSelected').innerHTML='Fascia: <strong>'+fIT(d)+' ore '+t+'</strong>';log('Fascia: '+fIT(d)+' ore '+t)}
+  else{sel=null;FM['ora_app'].dyn=st==='occ'?'Fascia già prenotata.':'Non disponibile.';renderG()}}
+ else{sel=null;renderG()}}
+safe(function(){seed();renderG();log('Pronto ✓','lg-ok')});
+safe(function(){da.min=iso(new Date());dn.max=new Date().toISOString().slice(0,10)});
+safe(function(){$('slotGrid').addEventListener('click',function(e){
+ var b=e.target.closest?e.target.closest('.cb'):null;if(!b||b.disabled)return;
+ sel={date:b.getAttribute('data-date'),time:b.getAttribute('data-time')};
+ da.value=sel.date;or.value=sel.time;setInv(FM['data_app'],false);setInv(FM['ora_app'],false);
+ $('slotSelected').innerHTML='Fascia: <strong>'+fIT(sel.date)+' ore '+sel.time+'</strong>';
+ renderG();prev_();log('Fascia da griglia')});
+ $('weekPrev').onclick=function(){if(wo>0){wo--;renderG()}};
+ $('weekNext').onclick=function(){if(wo<MW){wo++;renderG()}}});
+safe(function(){F.forEach(function(d){if(!d.el||d.el===da||d.el===or)return;
+ var ev=(d.el.tagName==='SELECT'||d.el.type==='date')?'change':'input';
+ d.el.addEventListener(ev,function(){
+  if(d.el===cf)d.el.value=d.el.value.toUpperCase();
+  if(d.el===cp)d.el.value=d.el.value.replace(/\D/g,'');
+  prev_();validate(false);
+  var o={};['servizio','nome_cognome','codice_fiscale','telefono','email','data_nascita','luogo_nascita','sesso','cittadinanza','residenza','indirizzo','civico','cap'].forEach(function(i){o[i]=$(i).value});
+  jS('csi-form',o)})})});
+safe(function(){da.addEventListener('change',function(){
+ FM['data_app'].dyn=null;var v=da.value;
+ if(v){var d=new Date(v+'T00:00:00');if(we(d))FM['data_app'].dyn='Sab/Dom chiusi.'}
+ trySync();prev_();validate(false)});
+ or.addEventListener('change',function(){FM['ora_app'].dyn=null;trySync();prev_();validate(false)})});
+safe(function(){form.addEventListener('submit',function(e){
+ e.preventDefault();log('▶ Conferma');
+ var btn=$('submitBtn');if(!btn.dataset.o)btn.dataset.o=btn.textContent;
+ btn.textContent='Salvataggio…';btn.disabled=true;
+ setTimeout(function(){btn.disabled=false;btn.textContent=btn.dataset.o},900);
+ trySync();
+ var miss=validate(true);
+ if(miss.length){$('submitHint').classList.add('show');log('Mancano '+miss.length+' campi','lg-err');toast('Incompleto: '+miss.length+' campi');return}
+ log('Validazione OK','lg-ok');
+ var keep=!sel&&cur&&!prevbk;
+ if(keep){validate(false);log('Dati aggiornati','lg-ok');toast('Aggiornato');return}
+ var bd=sel.date,bt=sel.time,num='CSI-'+new Date().getFullYear()+'-'+('0000'+(parseInt(stG('csi-fasc')||'0',10)+1)).slice(-4);
+ stS('csi-fasc',String(parseInt(stG('csi-fasc')||'0',10)+1));
+ var oggi=new Date().toLocaleDateString('it-IT');
+ out('cov_numero',num);out('cov_data',oggi);out('man_data','BARI, '+fIT(bd));out('man_ds',fIT(bd));out('out_oggi',oggi);out('out_ds',fIT(bd));
+ var b=loadB();
+ if(prevbk){delete b[prevbk.date+'T'+prevbk.time];prevbk=null}
+ b[bd+'T'+bt]=1;saveB(b);
+ cur={date:bd,time:bt,num:num,servizio:svcT(),nome:nm.value.trim(),reg:oggi};
+ jS('csi-cur',cur);
+ sel=null;da.value='';or.value='';setInv(FM['data_app'],false);setInv(FM['ora_app'],false);
+ renderG();ready=true;
+ $('confirmDetails').textContent=svcT()+' · '+bLab(cur)+' · '+num;
+ $('confirmBox').classList.add('show');$('confirmPrint').hidden=false;$('confirmReminder').hidden=false;$('statusChip').classList.add('show');
+ validate(false);
+ log('SALVATA: '+num+' · '+fIT(bd)+' ore '+bt,'lg-ok');
+ toast('Confermata: '+fIT(bd)+' ore '+bt);
+ $('fascicolo').scrollIntoView({behavior:'smooth'})})});
+/* STAMPA */
+var lpb=null;
+function busy(b,on){if(!b)return;if(on){b.dataset.o=b.textContent;b.textContent='Preparazione…';b.disabled=true}else{b.textContent=b.dataset.o||'';b.disabled=false}}
+function notReady(){var m=validate(false);toast('Registrazione non completa: '+(m.length||'0')+' campi da correggere');log('Stampa bloccata: registrazione incompleta','lg-err')}
+function doPrint(b){if(!ready){notReady();return}pw2=true;lpb=b;busy(b,true);setTimeout(function(){busy(lpb,false)},5000);try{window.print()}catch(e){busy(b,false)}}
+safe(function(){
+ document.querySelectorAll('.js-print').forEach(function(b){b.addEventListener('click',function(){doPrint(b)})});
+ window.addEventListener('afterprint',function(){busy(lpb,false);if(pw2&&cur){pw2=false;setTimeout(showRem,400)}})});
+/* PROMEMORIA */
+var armed=false;
+function rfb(m){$('rFb').innerHTML=m||''}
+function showRem(){if(!cur)return;
+ $('r_svc').textContent=cur.servizio;$('r_dt').textContent=bLab(cur);$('r_num').textContent=cur.num;
+ rfb('Scarica .ics, e-mail o gestisci.');armed=false;var b=$('rCan');b.textContent='Cancella';b.classList.remove('armed');
+ $('rov').hidden=false;document.body.style.overflow='hidden'}
+function hideRem(){$('rov').hidden=true;document.body.style.overflow=''}
+safe(function(){
+ $('rClose').onclick=hideRem;
+ $('rov').onclick=function(e){if(e.target===$('rov'))hideRem()};
+ $('confirmReminder').onclick=showRem});
+safe(function(){$('rIcs').onclick=function(){if(!cur)return;
+ try{
+  var h=cur.time.split(':'),tot=(+h[0])*60+(+h[1])+30;
+  var st=cur.date.replace(/-/g,'')+'T'+cur.time.replace(':','')+'00';
+  var en=cur.date.replace(/-/g,'')+'T'+p2(Math.floor(tot/60)%24)+p2(tot%60)+'00';
+  var ds=new Date(),stp=ds.getUTCFullYear()+p2(ds.getUTCMonth()+1)+p2(ds.getUTCDate())+'T'+p2(ds.getUTCHours())+p2(ds.getUTCMinutes())+p2(ds.getUTCSeconds())+'Z';
+  var ics='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//CSI//IT\r\nBEGIN:VEVENT\r\nUID:'+cur.num+'\r\nDTSTAMP:'+stp+'\r\nDTSTART;TZID=Europe/Rome:'+st+'\r\nDTEND;TZID=Europe/Rome:'+en+'\r\nSUMMARY:Appuntamento C.S.I. — '+cur.servizio+'\r\nLOCATION:Piazza Vittorio Emanuele\\, Bari\r\nDESCRIPTION:Servizio: '+cur.servizio+'\\nFascicolo: '+cur.num+'\\nInfo: info.csi.bari@gmail.com\r\nBEGIN:VALARM\r\nTRIGGER:-PT24H\r\nACTION:DISPLAY\r\nEND:VALARM\r\nBEGIN:VALARM\r\nTRIGGER:-PT2H\r\nACTION:DISPLAY\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n';
+  var bl=new Blob([ics],{type:'text/calendar'}),u=URL.createObjectURL(bl),a=document.createElement('a');
+  a.href=u;a.download='appuntamento-'+cur.num+'.ics';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){try{URL.revokeObjectURL(u)}catch(e){}},3000);
+  rfb('<strong>Scaricato</strong> — avvisi 24h e 2h.')}catch(e){rfb('Non riuscito')}}});
+safe(function(){$('rMail').onclick=function(){if(!cur)return;
+ var sj='Promemoria C.S.I. — '+bLab(cur);
+ var bd='Servizio: '+cur.servizio+'\nData: '+bLab(cur)+'\nFascicolo: '+cur.num+'\nSede: Piazza Vittorio Emanuele, Bari\nPorta: documento, tessera, smartphone.\nInfo: info.csi.bari@gmail.com';
+ try{window.location.href='mailto:info.csi.bari@gmail.com?subject='+encodeURIComponent(sj)+'&body='+encodeURIComponent(bd);rfb('<strong>E-mail pronta</strong>')}catch(e){rfb('Invia a info.csi.bari@gmail.com')}}});
+safe(function(){$('rChg').onclick=function(){if(!cur){hideRem();return}
+ prevbk=cur;hideRem();da.value='';or.value='';sel=null;renderG();
+ $('appointmentForm').scrollIntoView({behavior:'smooth'})}});
+safe(function(){$('rCan').onclick=function(){
+ if(!armed){armed=true;this.textContent='Confermi?';this.classList.add('armed');rfb('Premi di nuovo');return}
+ if(!cur){hideRem();return}
+ var b=loadB();delete b[cur.date+'T'+cur.time];saveB(b);
+ cur=null;prevbk=null;ready=false;sel=null;stD('csi-cur');
+ da.value='';or.value='';
+ $('confirmBox').classList.remove('show');$('confirmPrint').hidden=true;$('confirmReminder').hidden=true;$('statusChip').classList.remove('show');
+ $('cov_numero').textContent='—';out('cov_data','');out('cov_app','');out('out_app','');out('out_oggi','');
+ renderG();log('Annullata');rfb('<strong>Annullata.</strong>');
+ setTimeout(hideRem,1500)}});
+/* CASELLE */
+safe(function(){
+ document.querySelectorAll('.ot').forEach(function(t){
+  var h=function(){var m=t.querySelectorAll('span[style]');if(m.length<2)return;var a=m[0],b=m[1];
+   if(a.textContent.trim()==='X'){setMk(a,false);setMk(b,true)}else if(b.textContent.trim()==='X'){setMk(b,false);setMk(a,true)}else setMk(a,true)};
+  t.addEventListener('click',h);t.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();h()}})});
+ document.querySelectorAll('.ct').forEach(function(t){
+  var h=function(){var m=t.querySelector('span:last-child');setMk(m,m.textContent.trim()!=='X')};
+  t.addEventListener('click',h)});
+ document.querySelectorAll('.editable').forEach(function(el){el.addEventListener('input',function(){el.classList.toggle('filled',el.textContent.trim()!=='')})});
+ $('year').textContent=String(new Date().getFullYear())});
+/* AVVIO */
+safe(function(){
+ cur=jG('csi-cur')||null;
+ if(cur){ready=true;
+  if(cur.reg){out('cov_numero',cur.num);out('cov_data',cur.reg);out('man_data','BARI, '+fIT(cur.date));out('man_ds',fIT(cur.date));out('out_oggi',cur.reg);out('out_ds',fIT(cur.date))}
+  $('confirmBox').classList.add('show');$('confirmPrint').hidden=false;$('confirmReminder').hidden=false;$('statusChip').classList.add('show');
+  log('Ripristinata: '+cur.num,'lg-ok')}
+ var f=jG('csi-form');
+ if(f){['servizio','nome_cognome','codice_fiscale','telefono','email','data_nascita','luogo_nascita','sesso','cittadinanza','residenza','indirizzo','civico','cap'].forEach(function(i){if(f[i]!=null)$(i).value=f[i]})}
+ prev_();syncC();renderG();validate(false);
+ log('Pronto ✓','lg-ok')});
+})();
+</script>
+</body>
+</html>
